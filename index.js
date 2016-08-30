@@ -122,7 +122,7 @@
       }
     };
   };
-  ArcInput.prototype.setDegrees = function (minDegrees) {
+  ArcInput.prototype.setMinDegrees = function (minDegrees) {
     this._moveMin(minDegrees * Math.PI / 180);
   };
   ArcInput.prototype.setMaxDegrees = function (minDegrees) {
