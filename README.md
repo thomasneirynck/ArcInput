@@ -2,10 +2,12 @@
 
 Input control to select an Arc.
 
-- no external dependencies, only a single file (`index.js`)
-- compatible with
-    - script: embed `index.js` with `<script>` inside your web-page. A global `ArcInput` constructor function will be added to the `window` global scope.
-- out-of-the-box compatible with virtually all JS runtimes, no transpilation required.
+- no external dependencies. only need to load a single file (`index.js`)
+- load code as:
+    - AMD: defines an anonymous module returning the ArcInput constructor function
+    - CommonJS: exports the ArcInput constructor function
+    - standalone script (with `<script>` tag): A global `ArcInput` constructor function will be added to the `window` global scope
+- compatible with all HTML5 capable browsers
 
 ## Demo
 

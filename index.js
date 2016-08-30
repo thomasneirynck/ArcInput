@@ -1,4 +1,12 @@
-(function (scope, globName) {
+(function (root, factory) {
+  if (typeof define === "function" && define.amd) {
+    define([], factory);
+  } else if (typeof module === "object" && module.exports) {
+    module.exports = factory();
+  } else {
+    root["ArcInput"] = factory();
+  }
+}(this, function () {
 
 
   /**
@@ -209,10 +217,6 @@
     return Math.sqrt(distanceSquared(pointX, pointY, segmentFromX + t * (segmentToX - segmentFromX), segmentFromY + t * (segmentToY - segmentFromY)));
   }
 
+  return ArcInput;
 
-  //export API
-  scope[globName] = ArcInput;
-  return scope[globName];
-
-
-}(window, "ArcInput"));
+}));
