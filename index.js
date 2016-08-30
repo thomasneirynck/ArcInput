@@ -6,7 +6,7 @@
    *
    * @param {String|DOMNode} container The node to add the ArcInput to.
    * @param {Object} [options] Optional options object
-   * @constructor
+   * @constructor Create a new input.
    */
   function ArcInput(container, options) {
 
@@ -21,7 +21,6 @@
     this._context.canvas.style.left = 0;
     this._context.canvas.style.top = 0;
     containerNode.appendChild(this._context.canvas);
-
 
     this._minRadians = 0 * Math.PI / 180;
     this._maxRadians = 90 * Math.PI / 180;
@@ -42,8 +41,6 @@
     this._sectorStrokeStyle = options.sectorStrokeStyle || "rgb(139,137,137)";
     this._sectorLineWidth = options.sectorLineWidth || 2;
     this._sectorFillStyle = options.sectorFillStyle || "rgba(139,137,137, 0.4)";
-
-
 
     var self = this;
     this._frameHandle = -1;
