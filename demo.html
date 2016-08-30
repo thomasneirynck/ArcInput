@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ArcInput demo</title>
+    <script src="index.js"></script>
+</head>
+<body>
+
+<div id="container" style="; width: 100px; height: 100px">
+</div>
+<div id="result">
+
+</div>
+
+<script>
+
+    var arcInput = new window.ArcInput("container", {
+        minDegrees: -90,
+        maxDegrees: 120
+    });
+    arcInput.setMinDegrees(0);
+    arcInput.setMaxDegrees(45);
+
+    var inputHandle = arcInput.on("input", function(anArcInput){
+        document.getElementById("result").innerHTML = "On input:  " + anArcInput.getMinDegrees() + "," + anArcInput.getMaxDegrees();
+    });
+
+    var changeHandle = arcInput.on("change", function(anArcInput){
+        document.getElementById("result").innerHTML = "On change: " + anArcInput.getMinDegrees() + "," + anArcInput.getMaxDegrees();
+    });
+
+
+    //inputHandle.remove() to remove handle
+
+
+
+
+</script>
+
+</body>
+</html>
