@@ -1,6 +1,9 @@
 # ArcInput
 
-Input control to select an Arc.
+Input control to select an Arc. Use mouse or fingers to edit an arc on a circle.
+
+![](example.png)
+
 
 - no external dependencies. only need to load a single file (`index.js`)
 - load code as:
