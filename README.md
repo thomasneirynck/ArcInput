@@ -1,11 +1,10 @@
 # ArcInput
 
-Input control to select an Arc. Use mouse or fingers to edit an arc on a circle.
+Use mouse or fingers to edit an arc on a circle.
 
 ![](screenshot.png)
 
-
-- no external dependencies. only need to load a single file (`index.js`)
+- no external dependencies. only need to include a single file (`index.js`)
 - load code as:
     - AMD: defines an anonymous module returning the ArcInput constructor function
     - CommonJS: exports the ArcInput constructor function
@@ -14,7 +13,7 @@ Input control to select an Arc. Use mouse or fingers to edit an arc on a circle.
 
 ## Demo
 
-To see example usage, see the `index.html` file for sample code.
+See `index.html` for sample code.
 
 ## API
 
