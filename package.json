@@ -1,5 +1,5 @@
 {
-  "name": "arcinput",
+  "name": "@elastic/arcinput",
   "version": "0.0.0",
   "description": "UI control to select an Arc",
   "main": "index.js",
