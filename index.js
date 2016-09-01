@@ -19,10 +19,7 @@
   function ArcInput(container, options) {
 
     var containerNode = typeof container === "string" ? document.getElementById(container) : container;
-    this._listeners = {
-      input: [],
-      change: []
-    };
+    this._listeners = {input: [], change: []};
 
     this._context = document.createElement("canvas").getContext("2d");
     this._context.canvas.style.position = "relative";
@@ -41,8 +38,8 @@
     this._toMaxY = 0;
 
     options = options || {};
-    this._minDomainRadians = ((typeof options.minDegrees === "number") ? options.minDegrees : -90) * Math.PI / 180;
-    this._maxDomainRadians = ((typeof options.maxDegrees === "number") ? options.maxDegrees : 90) * Math.PI / 180;
+    this._minDomainRadians = ((typeof options.minDegrees === "number") ? options.minDegrees : -180) * Math.PI / 180;
+    this._maxDomainRadians = ((typeof options.maxDegrees === "number") ? options.maxDegrees : 180) * Math.PI / 180;
     this._circleStrokeStyle = options.circleStrokeStyle || "rgb(139,137,137)";
     this._circleLineWidth = options.circleLineWidth || 1;
     this._circleFillStyle = options.circleFillStyle || "rgba(255,255,255,0)";

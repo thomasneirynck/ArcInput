@@ -16,11 +16,8 @@
 <script>
 
     var arcInput = new window.ArcInput("container", {
-        minDegrees: -90,
-        maxDegrees: 120
+
     });
-    arcInput.setMinDegrees(0);
-    arcInput.setMaxDegrees(45);
 
     var inputHandle = arcInput.on("input", function(anArcInput){
         document.getElementById("result").innerHTML = "On input:  " + anArcInput.getMinDegrees() + "," + anArcInput.getMaxDegrees();
