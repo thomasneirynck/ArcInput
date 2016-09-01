@@ -6,7 +6,7 @@ Use mouse or fingers to edit an arc on a circle.
 
 - no external dependencies. only need to include a single file (`index.js`)
 - load code as:
-    - AMD: defines an anonymous module returning the ArcInput constructor function
+    - AMD: module returns ArcInput constructor function
     - CommonJS: exports the ArcInput constructor function
     - standalone script (with `<script>` tag): A global `ArcInput` constructor function will be added to the `window` global scope
 - compatible with all HTML5 capable browsers
