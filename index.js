@@ -29,8 +29,8 @@
     this._context.canvas.style.top = 0;
     containerNode.appendChild(this._context.canvas);
 
-    this._minRadians = 0 * Math.PI / 180;
-    this._maxRadians = 90 * Math.PI / 180;
+    this._minRadians = toRadians(0);
+    this._maxRadians = toRadians(90);
     this._centerX = 0;
     this._centerY = 0;
     this._radius = 0;
@@ -46,6 +46,9 @@
     this._sectorStrokeStyle = options.sectorStrokeStyle || 'rgb(139,137,137)';
     this._sectorLineWidth = options.sectorLineWidth || 2;
     this._sectorFillStyle = options.sectorFillStyle || 'rgba(139,137,137, 0.4)';
+    this._breaks = options.breaks > 0 ? options.breaks : 4;
+    this._breakStrokeStyle = options.breakStrokeStyle || 'rgb(139,137,137)';
+    this._breakLineWidth = options.breakLineWidth || 1;
 
     var self = this;
     this._frameHandle = -1;
@@ -133,14 +136,34 @@
       }
     };
   };
+  /**
+   * Set the min degrees
+   * @param {number} minDegrees degrees
+   */
   ArcInput.prototype.setMinDegrees = function (minDegrees) {
-    this._moveMin(minDegrees * Math.PI / 180);
+    this._moveMin(toRadians(minDegrees));
   };
-  ArcInput.prototype.setMaxDegrees = function (minDegrees) {
-    this._moveMax(minDegrees * Math.PI / 180);
+  /**
+   * Set the max degrees
+   * @param {Number} maxDegrees degrees
+   */
+  ArcInput.prototype.setMaxDegrees = function (maxDegrees) {
+    this._moveMax(toRadians(maxDegrees));
   };
+  /**
+   * Get the min degrees
+   * @returns {number}
+   */
   ArcInput.prototype.getMinDegrees = function () {
-    return this._minRadians * 180 / Math.PI;
+    return toDegrees(this._minRadians);
+  };
+
+  /**
+   * Get the max degrees
+   * @returns {number}
+   */
+  ArcInput.prototype.getMaxDegrees = function () {
+    return toDegrees(this._maxRadians);
   };
 
   ArcInput.prototype._wash = function () {
@@ -151,7 +174,21 @@
     this._toMinY = this._centerY + this._radius * Math.sin(this._minRadians);
     this._toMaxX = this._centerX + this._radius * Math.cos(this._maxRadians);
     this._toMaxY = this._centerY + this._radius * Math.sin(this._maxRadians);
+
+    if (this._maxRadians - this._minRadians > 0) {
+      this._step = (this._maxRadians - this._minRadians) / this._breaks;
+    } else {
+      var a = normalizeAngle(this._maxRadians);
+      var b = normalizeAngle(this._minRadians);
+
+
+      this._step = (Math.PI + (Math.PI - this._minRadians) + this._maxRadians) / this._breaks;
+
+    }
+
   };
+
+
   ArcInput.prototype._paint = function () {
 
     this._context.beginPath();
@@ -169,11 +206,24 @@
     this._context.arc(this._centerX, this._centerY, this._radius, this._minRadians, this._maxRadians, false);
     this._context.lineTo(this._centerX, this._centerY);
     this._context.closePath();
+
     this._context.strokeStyle = this._sectorStrokeStyle;
     this._context.lineWidth = this._sectorLineWidth;
     this._context.stroke();
     this._context.fillStyle = this._sectorFillStyle;
     this._context.fill();
+
+
+    this._context.strokeStyle = this._breakStrokeStyle;
+    this._context.lineWidth = this._breakLineWidth;
+    var angle;
+    for (var i = 1; i < this._breaks; i += 1) {
+      angle = this._minRadians + (this._step * i);
+      this._context.beginPath();
+      this._context.moveTo(this._centerX, this._centerY);
+      this._context.lineTo(this._centerX + this._radius * Math.cos(angle), this._centerY + this._radius * Math.sin(angle));
+      this._context.stroke();
+    }
 
   };
   ArcInput.prototype._invalidate = function () {
@@ -198,9 +248,6 @@
   };
 
 
-  ArcInput.prototype.getMaxDegrees = function () {
-    return this._maxRadians * 180 / Math.PI;
-  };
 
   function distanceSquared(vX, vY, wX, wY) {
     return Math.pow(vX - wX, 2) + Math.pow(vY - wY, 2);
@@ -217,6 +264,18 @@
     t = Math.max(0, Math.min(1, t));
     return Math.sqrt(distanceSquared(pointX, pointY, segmentFromX + t * (segmentToX - segmentFromX),
     segmentFromY + t * (segmentToY - segmentFromY)));
+  }
+
+  function toRadians(degrees) {
+    return degrees * Math.PI / 180;
+  }
+
+  function toDegrees(radians) {
+    return radians * 180 / Math.PI;
+  }
+
+  function normalizeAngle(theta) {
+    return theta - (Math.PI * 2) * Math.floor((theta + Math.PI) / (Math.PI * 2));
   }
 
   return ArcInput;
